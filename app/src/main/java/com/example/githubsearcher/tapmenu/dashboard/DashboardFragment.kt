@@ -1,4 +1,4 @@
-package com.example.githubsearcher.ui.dashboard
+package com.example.githubsearcher.tapmenu.dashboard
 
 import android.os.Bundle
 import android.view.LayoutInflater

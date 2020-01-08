@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="homeViewModel"
+            type="com.example.githubsearcher.tapmenu.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
@@ -12,7 +15,7 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_home_parent"
+            android:id="@+id/textInputLayoutParent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -27,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_fragment_home_keyword"
+                android:id="@+id/etSearchKeyWord"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/search_hint"
@@ -36,7 +39,7 @@
                 tools:text="Android" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_list"
+                android:id="@+id/rvList"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:paddingTop="12dp"
@@ -46,7 +49,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_home_parent" />
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutParent" />
 
             <TextView
                 android:id="@+id/emptyList"

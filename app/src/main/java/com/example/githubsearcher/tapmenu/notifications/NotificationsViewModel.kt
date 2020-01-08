@@ -1,4 +1,4 @@
-package com.example.githubsearcher.ui.notifications
+package com.example.githubsearcher.tapmenu.notifications
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

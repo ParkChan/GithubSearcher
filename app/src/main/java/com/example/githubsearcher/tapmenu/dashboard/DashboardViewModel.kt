@@ -1,4 +1,4 @@
-package com.example.githubsearcher.ui.dashboard
+package com.example.githubsearcher.tapmenu.dashboard
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
