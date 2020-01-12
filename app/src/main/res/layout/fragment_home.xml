@@ -6,8 +6,9 @@
     <data>
 
         <variable
-            name="homeViewModel"
-            type="com.example.githubsearcher.tapmenu.home.HomeViewModel" />
+            name="githubRepositoryViewModel"
+            type="com.example.githubsearcher.viewmodel.GithubRepositoryViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
