@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="githubRepositoryViewModel"
-            type="com.example.githubsearcher.viewmodel.GithubRepositoryViewModel" />
+            name="githubViewModel"
+            type="com.example.githubsearcher.tapmenu.home.viewmodel.GithubViewModel" />
 
     </data>
 

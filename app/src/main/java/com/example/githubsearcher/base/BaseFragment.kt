@@ -9,6 +9,9 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.githubsearcher.`interface`.ListScrollEvent
 
 abstract class BaseFragment<B : ViewDataBinding>(
     @LayoutRes
@@ -30,6 +33,26 @@ abstract class BaseFragment<B : ViewDataBinding>(
         )
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
+    }
+
+    protected fun setRecyclerViewScrollListener(recyclerView: RecyclerView, listScrollEvent: ListScrollEvent) {
+        val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val totalItemCount = layoutManager.itemCount
+                val visibleItemCount = layoutManager.childCount
+                val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+
+                listScrollEvent.run {
+                    onScrolled(
+                        totalItemCount,
+                        visibleItemCount,
+                        lastVisibleItem
+                    )
+                }
+            }
+        })
     }
 
     fun showToast(msg: String?) = Toast.makeText(

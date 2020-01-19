@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.example.githubsearcher.model
+package com.example.githubsearcher.tapmenu.home.model
 
 import com.google.gson.annotations.SerializedName
 import com.jsandroid.paging.model.GithubModel
 
-data class ResSearchDTO(
+data class ResSearch(
     @SerializedName("total_count") val total: Int = 0,
     @SerializedName("items") val items: List<GithubModel> = emptyList(),
     val nextPage: Int? = null

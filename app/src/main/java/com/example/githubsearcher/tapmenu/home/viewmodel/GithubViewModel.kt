@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-package com.example.githubsearcher.viewmodel
+package com.example.githubsearcher.tapmenu.home.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.example.githubsearcher.repository.GithubRepository
+import androidx.lifecycle.ViewModel
+import com.example.githubsearcher.tapmenu.home.repository.GithubRepository
 import com.jsandroid.paging.model.GithubModel
 import com.jsandroid.paging.model.RepoSearchResult
 
 
-class GithubRepositoryViewModel(application: Application) : AndroidViewModel(application) {
+class GithubViewModel : ViewModel() {
 
     companion object {
         private const val VISIBLE_THRESHOLD = 5
@@ -44,9 +43,8 @@ class GithubRepositoryViewModel(application: Application) : AndroidViewModel(app
     val networkErrors: LiveData<String> = Transformations.switchMap(repoResult,
         { it -> it.networkErrors })
 
-    fun searchRepo(queryString: String) {
-        //queryLiveData.postValue(queryString)
-        repository.search(queryString)
+    fun search(queryString: String) {
+        queryLiveData.value = queryString
     }
 
     fun listScrolled(visibleItemCount: Int, lastVisibleItemPosition: Int, totalItemCount: Int) {

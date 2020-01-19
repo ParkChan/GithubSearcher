@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.githubsearcher.repository
+package com.example.githubsearcher.tapmenu.home.repository
 
 import androidx.lifecycle.MutableLiveData
 import com.example.githubsearcher.api.GithubService
