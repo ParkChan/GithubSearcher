@@ -1,6 +1,7 @@
 package com.example.githubsearcher.tapmenu.home
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.ViewModelProviders
 import com.architecturestudy.base.BaseFragment
@@ -24,9 +25,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     }
 
     fun initListener() {
-        binding.etSearchKeyWord.setOnEditorActionListener { textView, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                updateList(textView.text.toString())
+        binding.etSearchKeyWord.setOnEditorActionListener { _, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_GO) {
+                updateList()
+                true
+            } else {
+                false
+            }
+        }
+
+        binding.etSearchKeyWord.setOnKeyListener { _, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                updateList()
                 true
             } else {
                 false
@@ -34,8 +44,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         }
     }
 
-    fun updateList(query: String) {
-        binding.githubRepositoryViewModel?.searchRepo(query)
-        showToast("검색을 시작합니다.")
+    fun updateList() {
+        binding.etSearchKeyWord.text?.let {
+            if (it.isNotEmpty()) {
+                binding.githubRepositoryViewModel?.searchRepo(it.toString())
+                showToast("검색을 시작합니다.")
+            }
+        }
     }
 }
