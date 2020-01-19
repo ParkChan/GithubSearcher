@@ -19,7 +19,7 @@ package com.example.githubsearcher.tapmenu.home.model
 import com.google.gson.annotations.SerializedName
 import com.jsandroid.paging.model.GithubModel
 
-data class ResSearch(
+data class ResGithubInfo(
     @SerializedName("total_count") val total: Int = 0,
     @SerializedName("items") val items: List<GithubModel> = emptyList(),
     val nextPage: Int? = null

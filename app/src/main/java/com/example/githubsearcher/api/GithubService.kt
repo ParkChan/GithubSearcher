@@ -16,7 +16,7 @@
 
 package com.example.githubsearcher.api
 
-import com.example.githubsearcher.tapmenu.home.model.ResSearch
+import com.example.githubsearcher.tapmenu.home.model.ResGithubInfo
 import com.jsandroid.paging.model.GithubModel
 import com.orhanobut.logger.Logger
 import okhttp3.OkHttpClient
@@ -46,15 +46,15 @@ fun searchRepos(
     val apiQuery = query + IN_QUALIFIER
 
     service.searchRepos(apiQuery, page, itemsPerPage).enqueue(
-        object : Callback<ResSearch> {
-            override fun onFailure(call: Call<ResSearch>?, t: Throwable) {
+        object : Callback<ResGithubInfo> {
+            override fun onFailure(call: Call<ResGithubInfo>?, t: Throwable) {
                 Logger.d(TAG, "fail to get data")
                 onError(t.message ?: "unknown error")
             }
 
             override fun onResponse(
-                call: Call<ResSearch>?,
-                response: Response<ResSearch>
+                call: Call<ResGithubInfo>?,
+                response: Response<ResGithubInfo>
             ) {
                 Logger.d(TAG, "got a response $response")
                 if (response.isSuccessful) {
@@ -81,7 +81,7 @@ interface GithubService {
         @Query("q") query: String,
         @Query("page") page: Int,
         @Query("per_page") itemsPerPage: Int
-    ): Call<ResSearch>
+    ): Call<ResGithubInfo>
 
     companion object {
         private const val BASE_URL = "https://api.github.com/"

@@ -11,10 +11,13 @@ import com.example.githubsearcher.`interface`.ListScrollEvent
 import com.example.githubsearcher.databinding.FragmentHomeBinding
 import com.example.githubsearcher.tapmenu.home.viewmodel.GithubViewModel
 import com.jsandroid.paging.model.GithubModel
+import com.jsandroid.paging.ui.ReposAdapter
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(
     R.layout.fragment_home
 ) {
+
+    private val reposAdapter = ReposAdapter()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -65,16 +68,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     fun updateList() {
         binding.etSearchKeyWord.text?.let {
             if (it.isNotEmpty()) {
-                binding.githubRepositoryViewModel?.searchRepo(it.toString())
+                binding.githubViewModel?.search(it.toString())
                 showToast("검색을 시작합니다.")
             }
         }
     }
 
     private fun initAdapter() {
+
+        binding.rvList.adapter = reposAdapter
+
         binding.githubViewModel?.run{
             repos.observe(viewLifecycleOwner, Observer<List<GithubModel>> {
-
+                reposAdapter.submitList(it)
             })
 
             networkErrors.observe(viewLifecycleOwner, Observer<String> {

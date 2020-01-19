@@ -34,14 +34,12 @@ class GithubViewModel : ViewModel() {
     private val repository: GithubRepository = GithubRepository()
 
     private val queryLiveData = MutableLiveData<String>()
-    private val repoResult: LiveData<RepoSearchResult> = Transformations.map(queryLiveData, {
+    private val repoResult: LiveData<RepoSearchResult> = Transformations.map(queryLiveData) {
         repository.search(it)
-    })
+    }
 
-    val repos: LiveData<List<GithubModel>> = Transformations.switchMap(repoResult,
-        { it -> it.data })
-    val networkErrors: LiveData<String> = Transformations.switchMap(repoResult,
-        { it -> it.networkErrors })
+    val repos: LiveData<List<GithubModel>> = Transformations.switchMap(repoResult) { it.data }
+    val networkErrors: LiveData<String> = Transformations.switchMap(repoResult) { it.networkErrors }
 
     fun search(queryString: String) {
         queryLiveData.value = queryString
