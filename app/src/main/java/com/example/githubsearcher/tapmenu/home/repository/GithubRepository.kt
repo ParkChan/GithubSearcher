@@ -50,8 +50,7 @@ class GithubRepository {
 
         isRequestInProgress = true
         searchRepos(service, query, lastRequestedPage, NETWORK_PAGE_SIZE, { repos ->
-
-            responseData.value = repos
+            responseData.postValue(repos)
             lastRequestedPage++
             isRequestInProgress = false
 

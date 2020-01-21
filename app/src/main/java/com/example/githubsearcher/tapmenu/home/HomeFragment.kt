@@ -18,6 +18,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 ) {
 
     private val reposAdapter = ReposAdapter()
+    private val list: ArrayList<GithubModel> = arrayListOf()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -26,14 +27,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         setRecyclerViewScrollListener(binding.rvList, object : ListScrollEvent {
 
             override fun onScrolled(
-                totalItemCount: Int,
                 visibleItemCount: Int,
-                lastVisibleItem: Int
+                lastVisibleItem: Int,
+                totalItemCount: Int
             ) {
                 binding.githubViewModel?.listScrolled(
-                    totalItemCount,
                     visibleItemCount,
-                    lastVisibleItem
+                    lastVisibleItem,
+                    totalItemCount
                 )
             }
         })
@@ -69,6 +70,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         binding.etSearchKeyWord.text?.let {
             if (it.isNotEmpty()) {
                 binding.githubViewModel?.search(it.toString())
+                list.clear()
+                reposAdapter.submitList(list)
                 showToast("검색을 시작합니다.")
             }
         }
@@ -78,9 +81,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 
         binding.rvList.adapter = reposAdapter
 
-        binding.githubViewModel?.run{
+        binding.githubViewModel?.run {
             repos.observe(viewLifecycleOwner, Observer<List<GithubModel>> {
-                reposAdapter.submitList(it)
+                list.addAll(it)
+                reposAdapter.submitList(ArrayList(list))
             })
 
             networkErrors.observe(viewLifecycleOwner, Observer<String> {

@@ -42,7 +42,7 @@ class GithubViewModel : ViewModel() {
     val networkErrors: LiveData<String> = Transformations.switchMap(repoResult) { it.networkErrors }
 
     fun search(queryString: String) {
-        queryLiveData.value = queryString
+        queryLiveData.postValue(queryString)
     }
 
     fun listScrolled(visibleItemCount: Int, lastVisibleItemPosition: Int, totalItemCount: Int) {

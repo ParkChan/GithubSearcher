@@ -21,6 +21,5 @@ import com.jsandroid.paging.model.GithubModel
 
 data class ResGithubInfo(
     @SerializedName("total_count") val total: Int = 0,
-    @SerializedName("items") val items: List<GithubModel> = emptyList(),
-    val nextPage: Int? = null
+    @SerializedName("items") val items: List<GithubModel> = emptyList()
 )
