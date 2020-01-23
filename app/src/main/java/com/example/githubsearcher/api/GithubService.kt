@@ -17,7 +17,6 @@
 package com.example.githubsearcher.api
 
 import com.example.githubsearcher.tapmenu.home.model.ResGithubInfo
-import com.jsandroid.paging.model.GithubModel
 import com.orhanobut.logger.Logger
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -38,12 +37,12 @@ fun searchRepos(
     query: String,
     page: Int,
     itemsPerPage: Int,
-    onSuccess: (githubModels: List<GithubModel>) -> Unit,
+    onSuccess: (githubInfo: ResGithubInfo) -> Unit,
     onError: (error: String) -> Unit
 ) {
     Logger.d(TAG, "query: $query, page: $page, itemsPerPage: $itemsPerPage")
 
-    val apiQuery = query + IN_QUALIFIER
+    val apiQuery = query
 
     service.searchRepos(apiQuery, page, itemsPerPage).enqueue(
         object : Callback<ResGithubInfo> {
@@ -58,8 +57,7 @@ fun searchRepos(
             ) {
                 Logger.d(TAG, "got a response $response")
                 if (response.isSuccessful) {
-                    val repos = response.body()?.items ?: emptyList()
-                    onSuccess(repos)
+                    response.body()?.let { onSuccess(it) }
                 } else {
                     onError(response.errorBody()?.string() ?: "Unknown error")
                 }

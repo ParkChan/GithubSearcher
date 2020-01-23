@@ -46,7 +46,8 @@ class GithubViewModel : ViewModel() {
     }
 
     fun listScrolled(visibleItemCount: Int, lastVisibleItemPosition: Int, totalItemCount: Int) {
-        if (visibleItemCount + lastVisibleItemPosition + VISIBLE_THRESHOLD >= totalItemCount) {
+        //if (visibleItemCount + lastVisibleItemPosition + VISIBLE_THRESHOLD >= totalItemCount) {
+        if (visibleItemCount + lastVisibleItemPosition >= totalItemCount) {
             val immutableQuery = lastQueryValue()
             if (immutableQuery != null) {
                 repository.requestMore(immutableQuery)

@@ -20,6 +20,6 @@ import com.google.gson.annotations.SerializedName
 import com.jsandroid.paging.model.GithubModel
 
 data class ResGithubInfo(
-    @SerializedName("total_count") val total: Int = 0,
+    @SerializedName("total_count") val totalCount: Int = 0,
     @SerializedName("items") val items: List<GithubModel> = emptyList()
 )

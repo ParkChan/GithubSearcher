@@ -40,15 +40,15 @@ abstract class BaseFragment<B : ViewDataBinding>(
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val totalItemCount = layoutManager.itemCount
                 val visibleItemCount = layoutManager.childCount
-                val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+                val lastVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition()
+                val totalItemCount = layoutManager.itemCount
 
                 listScrollEvent.run {
                     onScrolled(
-                        totalItemCount,
                         visibleItemCount,
-                        lastVisibleItem
+                        lastVisibleItem,
+                        totalItemCount
                     )
                 }
             }
