@@ -47,7 +47,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     }
 
     fun initListener() {
-        binding.etSearchKeyWord.setOnEditorActionListener { _, actionId, event ->
+        binding.etSearchKeyWord.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_GO) {
                 updateList()
                 true

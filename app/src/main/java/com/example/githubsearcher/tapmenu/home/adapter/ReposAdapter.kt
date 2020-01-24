@@ -21,10 +21,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.jsandroid.paging.model.GithubModel
+import com.orhanobut.logger.Logger
 
-/**
- * Adapter for the list of repositories.
- */
 class ReposAdapter : ListAdapter<GithubModel, RecyclerView.ViewHolder>(REPO_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -33,8 +31,10 @@ class ReposAdapter : ListAdapter<GithubModel, RecyclerView.ViewHolder>(REPO_COMP
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val repoItem = getItem(position)
-        if (repoItem != null) {
-            (holder as RepoViewHolder).bind(repoItem)
+        repoItem.also {
+            Logger.d("position $position data >>> $repoItem")
+        }?.let {
+            (holder as RepoViewHolder).bind(it)
         }
     }
 
