@@ -16,17 +16,27 @@
 
 package com.jsandroid.paging.ui
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.githubsearcher.R
+import com.example.githubsearcher.databinding.RepoViewItemBinding
 import com.example.githubsearcher.tapmenu.home.model.GithubModel
 import com.orhanobut.logger.Logger
 
 class GithubAdapter : ListAdapter<GithubModel, RecyclerView.ViewHolder>(REPO_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return RepoViewHolder.create(parent)
+        val binding: RepoViewItemBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.repo_view_item,
+            parent,
+            false
+        )
+        return RepoViewHolder(binding, binding.root)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

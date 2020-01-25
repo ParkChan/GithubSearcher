@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="githubModel"
             type="com.example.githubsearcher.tapmenu.home.model.GithubModel" />
@@ -31,10 +33,12 @@
 
         <TextView
             android:id="@+id/repo_description"
+            visibility="@{githubModel.description}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:maxLines="10"
             android:paddingVertical="@dimen/row_item_margin_vertical"
+            android:text="@{githubModel.description}"
             android:textColor="?android:textColorPrimary"
             android:textSize="@dimen/repo_description_size"
             app:layout_constraintEnd_toEndOf="parent"
@@ -45,15 +49,15 @@
 
         <TextView
             android:id="@+id/repo_language"
+            visibility="@{githubModel.language}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:paddingVertical="@dimen/row_item_margin_vertical"
-            android:text="@string/language"
+            android:text="@{String.format(@string/language, githubModel.language)}"
             android:textSize="@dimen/repo_description_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/repo_description"
-            tools:ignore="RtlCompat" />
+            app:layout_constraintTop_toBottomOf="@+id/repo_description" />
 
         <ImageView
             android:id="@+id/star"
