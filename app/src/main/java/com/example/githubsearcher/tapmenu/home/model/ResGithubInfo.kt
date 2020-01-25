@@ -17,7 +17,6 @@
 package com.example.githubsearcher.tapmenu.home.model
 
 import com.google.gson.annotations.SerializedName
-import com.jsandroid.paging.model.GithubModel
 
 data class ResGithubInfo(
     @SerializedName("total_count") val totalCount: Int = 0,

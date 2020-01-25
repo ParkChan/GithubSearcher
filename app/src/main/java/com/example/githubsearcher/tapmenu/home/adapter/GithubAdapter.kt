@@ -20,10 +20,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.jsandroid.paging.model.GithubModel
+import com.example.githubsearcher.tapmenu.home.model.GithubModel
 import com.orhanobut.logger.Logger
 
-class ReposAdapter : ListAdapter<GithubModel, RecyclerView.ViewHolder>(REPO_COMPARATOR) {
+class GithubAdapter : ListAdapter<GithubModel, RecyclerView.ViewHolder>(REPO_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return RepoViewHolder.create(parent)
@@ -45,6 +45,12 @@ class ReposAdapter : ListAdapter<GithubModel, RecyclerView.ViewHolder>(REPO_COMP
 
             override fun areContentsTheSame(oldItem: GithubModel, newItem: GithubModel): Boolean =
                 oldItem == newItem
+        }
+    }
+
+    fun addGithubList(list: List<GithubModel>?) {
+        list?.let {
+            submitList(ArrayList(list))
         }
     }
 }

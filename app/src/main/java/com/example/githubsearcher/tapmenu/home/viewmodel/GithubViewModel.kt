@@ -20,8 +20,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.example.githubsearcher.tapmenu.home.model.GithubModel
 import com.example.githubsearcher.tapmenu.home.repository.GithubRepository
-import com.jsandroid.paging.model.GithubModel
 import com.jsandroid.paging.model.RepoSearchResult
 
 
@@ -38,7 +38,8 @@ class GithubViewModel : ViewModel() {
         repository.search(it)
     }
 
-    val repos: LiveData<List<GithubModel>> = Transformations.switchMap(repoResult) { it.data }
+    val responseData: LiveData<List<GithubModel>> =
+        Transformations.switchMap(repoResult) { it.data }
     val networkErrors: LiveData<String> = Transformations.switchMap(repoResult) { it.networkErrors }
 
     fun search(queryString: String) {

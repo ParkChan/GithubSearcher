@@ -72,7 +72,7 @@ fun searchRepos(
  */
 interface GithubService {
     /**
-     * Get repos ordered by stars.
+     * Get responseData ordered by stars.
      */
     @GET("search/repositories?sort=stars")
     fun searchRepos(

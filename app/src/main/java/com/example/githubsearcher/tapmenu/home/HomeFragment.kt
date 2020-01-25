@@ -3,22 +3,19 @@ package com.example.githubsearcher.tapmenu.home
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.architecturestudy.base.BaseFragment
 import com.example.githubsearcher.R
 import com.example.githubsearcher.`interface`.ListScrollEvent
 import com.example.githubsearcher.databinding.FragmentHomeBinding
 import com.example.githubsearcher.tapmenu.home.viewmodel.GithubViewModel
-import com.jsandroid.paging.model.GithubModel
-import com.jsandroid.paging.ui.ReposAdapter
+import com.jsandroid.paging.ui.GithubAdapter
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(
     R.layout.fragment_home
 ) {
 
-    private val reposAdapter = ReposAdapter()
-    private val list: ArrayList<GithubModel> = arrayListOf()
+    private val reposAdapter = GithubAdapter()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -70,26 +67,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         binding.etSearchKeyWord.text?.let {
             if (it.isNotEmpty()) {
                 binding.githubViewModel?.search(it.toString())
-                list.clear()
-                reposAdapter.submitList(list)
                 showToast("검색을 시작합니다.")
             }
         }
     }
 
     private fun initAdapter() {
-
         binding.rvList.adapter = reposAdapter
-
-        binding.githubViewModel?.run {
-            repos.observe(viewLifecycleOwner, Observer<List<GithubModel>> {
-                list.addAll(it)
-                reposAdapter.submitList(ArrayList(list))
-            })
-
-            networkErrors.observe(viewLifecycleOwner, Observer<String> {
-
-            })
-        }
     }
 }

@@ -17,6 +17,7 @@
 package com.jsandroid.paging.model
 
 import androidx.lifecycle.LiveData
+import com.example.githubsearcher.tapmenu.home.model.GithubModel
 
 data class RepoSearchResult(
     val data: LiveData<List<GithubModel>>,

@@ -20,7 +20,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.githubsearcher.api.GithubService
 import com.example.githubsearcher.api.searchRepos
-import com.jsandroid.paging.model.GithubModel
+import com.example.githubsearcher.tapmenu.home.model.GithubModel
 import com.jsandroid.paging.model.RepoSearchResult
 import com.orhanobut.logger.Logger
 
@@ -34,6 +34,7 @@ class GithubRepository {
     private var totalPage = 1
     private var isRequestInProgress = false
 
+    private val items = mutableListOf<GithubModel>()
 
     fun search(query: String): RepoSearchResult {
         Logger.d("GithubRepository", "New query: $query")
@@ -52,6 +53,7 @@ class GithubRepository {
     private fun initPageInfo() {
         lastRequestedPage = 1
         totalPage = 1
+        items.clear()
     }
 
     private fun requestData(query: String) {
@@ -69,7 +71,8 @@ class GithubRepository {
             }
 
             repos.items.let {
-                responseData.postValue(it)
+                items.addAll(it)
+                responseData.postValue(items)
                 lastRequestedPage++
             }
             isRequestInProgress = false

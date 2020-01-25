@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jsandroid.paging.model
+package com.example.githubsearcher.tapmenu.home.model
 
 import com.google.gson.annotations.SerializedName
 
