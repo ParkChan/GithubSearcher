@@ -20,9 +20,6 @@ abstract class BaseFragment<B : ViewDataBinding>(
 
     protected lateinit var binding: B
 
-    protected val ARGS_SCROLL_Y: String = "ARGS_SCROLL_Y"
-    protected var scrollY: Int = 0
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,8 +44,6 @@ abstract class BaseFragment<B : ViewDataBinding>(
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                scrollY = dy
-
                 val visibleItemCount = layoutManager.childCount
                 val lastVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition()
                 val totalItemCount = layoutManager.itemCount
@@ -63,12 +58,6 @@ abstract class BaseFragment<B : ViewDataBinding>(
             }
         })
     }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putInt(ARGS_SCROLL_Y, scrollY)
-    }
-
     fun showToast(msg: String?) = Toast.makeText(
         activity,
         msg,

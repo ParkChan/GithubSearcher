@@ -60,39 +60,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             }
         })
         initAdapter()
-
-        savedInstanceState?.let {
-            val scrollY: Int = it.getInt(ARGS_SCROLL_Y)
-            Logger.d("scroll Y >>>>>>> $scrollY")
-            if (scrollY > 0) {
-                binding.rvList.scrollY = scrollY
-            }
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Logger.d("HomeFragment lifecycle onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Logger.d("HomeFragment lifecycle onPause")
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Logger.d("HomeFragment lifecycle onDestroyView")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Logger.d("HomeFragment lifecycle onDestroy")
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        Logger.d("HomeFragment lifecycle onDetach")
     }
 
     private fun initViewModel() {
