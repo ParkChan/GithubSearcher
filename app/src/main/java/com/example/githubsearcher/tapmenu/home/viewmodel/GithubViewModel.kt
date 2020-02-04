@@ -28,7 +28,7 @@ import com.jsandroid.paging.model.RepoSearchResult
 class GithubViewModel : ViewModel() {
 
     companion object {
-        private const val VISIBLE_THRESHOLD = 5
+        private const val VISIBLE_THRESHOLD = 20
     }
 
     private val repository: GithubRepository = GithubRepository()
@@ -47,8 +47,7 @@ class GithubViewModel : ViewModel() {
     }
 
     fun listScrolled(visibleItemCount: Int, lastVisibleItemPosition: Int, totalItemCount: Int) {
-        //if (visibleItemCount + lastVisibleItemPosition + VISIBLE_THRESHOLD >= totalItemCount) {
-        if (visibleItemCount + lastVisibleItemPosition >= totalItemCount) {
+        if (visibleItemCount + lastVisibleItemPosition + VISIBLE_THRESHOLD >= totalItemCount) {
             val immutableQuery = lastQueryValue()
             if (immutableQuery != null) {
                 repository.requestMore(immutableQuery)

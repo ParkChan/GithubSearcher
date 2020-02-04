@@ -3,10 +3,10 @@ package com.jsandroid.paging.ui
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubsearcher.BR
-import com.example.githubsearcher.databinding.RepoViewItemBinding
+import com.example.githubsearcher.databinding.ItemGithubBinding
 import com.example.githubsearcher.tapmenu.home.model.GithubModel
 
-class RepoViewHolder(private val binding: RepoViewItemBinding, view: View) :
+class RepoViewHolder(private val binding: ItemGithubBinding, view: View) :
     RecyclerView.ViewHolder(view) {
 
     init {

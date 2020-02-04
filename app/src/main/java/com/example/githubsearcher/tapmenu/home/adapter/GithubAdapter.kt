@@ -23,16 +23,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubsearcher.R
-import com.example.githubsearcher.databinding.RepoViewItemBinding
+import com.example.githubsearcher.databinding.ItemGithubBinding
 import com.example.githubsearcher.tapmenu.home.model.GithubModel
 import com.orhanobut.logger.Logger
 
 class GithubAdapter : ListAdapter<GithubModel, RecyclerView.ViewHolder>(REPO_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding: RepoViewItemBinding = DataBindingUtil.inflate(
+        val binding: ItemGithubBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
-            R.layout.repo_view_item,
+            R.layout.item_github,
             parent,
             false
         )

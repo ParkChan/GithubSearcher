@@ -1,12 +1,14 @@
 package com.example.githubsearcher.database
 
+import androidx.room.Dao
 import androidx.room.Query
+import com.example.githubsearcher.tapmenu.home.model.GithubModel
 import io.reactivex.Maybe
 
-interface GithubDao : BaseDao<GithubDataEntity> {
+@Dao
+interface GithubDao : BaseDao<GithubModel> {
 
     @Query("SELECT * FROM githubData")
-    fun selectAll(): Maybe<List<GithubDataEntity>>
-
+    fun selectAll(): Maybe<List<GithubModel>>
 }
 

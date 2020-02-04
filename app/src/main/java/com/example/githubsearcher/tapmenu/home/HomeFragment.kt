@@ -10,14 +10,10 @@ import androidx.lifecycle.ViewModelProviders
 import com.architecturestudy.base.BaseFragment
 import com.example.githubsearcher.R
 import com.example.githubsearcher.`interface`.ListScrollEvent
-import com.example.githubsearcher.database.AppDatabase
 import com.example.githubsearcher.databinding.FragmentHomeBinding
 import com.example.githubsearcher.tapmenu.home.viewmodel.GithubViewModel
 import com.jsandroid.paging.ui.GithubAdapter
 import com.orhanobut.logger.Logger
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(
     R.layout.fragment_home
@@ -64,9 +60,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             }
         })
         initAdapter()
-        CoroutineScope(Dispatchers.IO).launch {
-            context?.let { AppDatabase.getInstance(it)?.GithubDao()?.selectAll() }
-        }
     }
 
     override fun onResume() {

@@ -10,6 +10,9 @@ public class GithubApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Logger.addLogAdapter(new AndroidLogAdapter());
+
         //디버그 모드에서만 동작하도록 설정
         Logger.addLogAdapter(new AndroidLogAdapter() {
             @Override
