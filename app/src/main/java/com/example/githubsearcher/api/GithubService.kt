@@ -47,7 +47,6 @@ fun searchRepos(
     service.searchRepos(apiQuery, page, itemsPerPage).enqueue(
         object : Callback<ResGithubInfo> {
             override fun onFailure(call: Call<ResGithubInfo>?, t: Throwable) {
-                Logger.d(TAG, "fail to get data")
                 onError(t.message ?: "unknown error")
             }
 

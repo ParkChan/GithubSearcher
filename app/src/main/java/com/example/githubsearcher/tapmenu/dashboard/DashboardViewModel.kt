@@ -1,13 +1,31 @@
 package com.example.githubsearcher.tapmenu.dashboard
 
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.example.githubsearcher.GithubApplication
+import com.example.githubsearcher.database.GithubDatabase
+import com.example.githubsearcher.tapmenu.home.model.GithubModel
+import com.orhanobut.logger.Logger
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class DashboardViewModel : ViewModel() {
+class DashboardViewModel(application: GithubApplication) : AndroidViewModel(application) {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
+    private val _githubListLiveData = MutableLiveData<List<GithubModel>>()
+    val githubListLiveData: LiveData<List<GithubModel>> = _githubListLiveData
+
+    fun selectAll() {
+        CoroutineScope(Dispatchers.IO).launch {
+            GithubDatabase.getInstance(getApplication()).githubDao().selectAll()
+                .subscribe({ githubModels ->
+                    _githubListLiveData.postValue(githubModels)
+                }, { throwable ->
+                    Logger.d(throwable.message)
+                })
+        }
     }
-    val text: LiveData<String> = _text
+
+
 }
