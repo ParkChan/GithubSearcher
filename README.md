@@ -1,3 +1,13 @@
 # GithubSearcher
-트렐로 주소 :
-https://trello.com/invite/b/UrcinQhP/875c57ba62de9cef5104c09b6c317c39/gitsearcher-develop
+
+리스트를 검색하고 즐겨찾기를 추가하는 예제소스입니다.   
+
++Android JetPack Architecture   
+ -DataBinding   
+ -LiveData   
+ -Bottom Navigation   
+ -AAC ViewModel   
+ -Room   
+   
++coroutine
+
