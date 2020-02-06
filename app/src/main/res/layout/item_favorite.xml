@@ -60,10 +60,10 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_description" />
 
         <Button
-            addFavorite="@{githubModel}"
+            deleteFavorite="@{githubModel}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/favorite"
+            android:text="@string/delete"
             app:layout_constraintStart_toEndOf="@id/tv_language"
             app:layout_constraintTop_toBottomOf="@+id/tv_description" />
 

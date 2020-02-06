@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import androidx.lifecycle.ViewModelProviders
-import com.architecturestudy.base.BaseFragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.githubsearcher.R
 import com.example.githubsearcher.`interface`.ListScrollEvent
+import com.example.githubsearcher.base.BaseFragment
 import com.example.githubsearcher.databinding.FragmentHomeBinding
 import com.example.githubsearcher.tapmenu.home.adapter.GithubAdapter
 import com.example.githubsearcher.tapmenu.home.viewmodel.GithubViewModel
@@ -40,7 +40,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     }
 
     private fun initViewModel() {
-        binding.githubViewModel = ViewModelProviders.of(this)
+        binding.githubViewModel = ViewModelProvider(this)
             .get(GithubViewModel::class.java)
     }
 

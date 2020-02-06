@@ -2,17 +2,15 @@ package com.example.githubsearcher.tapmenu.dashboard
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.ViewModelProviders
-import com.architecturestudy.base.BaseFragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.githubsearcher.R
+import com.example.githubsearcher.base.BaseFragment
 import com.example.githubsearcher.databinding.FragmentDashboardBinding
-import com.example.githubsearcher.tapmenu.home.adapter.GithubAdapter
 
 class DashboardFragment : BaseFragment<FragmentDashboardBinding>(
     R.layout.fragment_dashboard
 ) {
-
-    private val reposAdapter = GithubAdapter()
+    private val favoriteAdapter = FavoriteAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -22,8 +20,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(
     }
 
     private fun initViewModel() {
-        binding.dashboardViewModel = ViewModelProviders.of(this)
-            .get(DashboardViewModel::class.java)
+        binding.dashboardViewModel =
+            ViewModelProvider(this).get(DashboardViewModel::class.java)
     }
 
     private fun updateList() {
@@ -31,6 +29,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(
     }
 
     private fun initAdapter() {
-        binding.rvList.adapter = reposAdapter
+        binding.rvList.adapter = favoriteAdapter
     }
 }
