@@ -1,4 +1,4 @@
-package com.star_zero.navigation_keep_fragment_sample.navigation
+package com.example.githubsearcher.navigation
 
 import android.content.Context
 import android.os.Bundle

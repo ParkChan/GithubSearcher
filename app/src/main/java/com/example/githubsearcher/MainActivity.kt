@@ -6,7 +6,7 @@ import androidx.navigation.plusAssign
 import androidx.navigation.ui.setupWithNavController
 import com.architecturestudy.base.BaseActivity
 import com.example.githubsearcher.databinding.ActivityMainBinding
-import com.star_zero.navigation_keep_fragment_sample.navigation.KeepStateNavigator
+import com.example.githubsearcher.navigation.KeepStateNavigator
 
 class MainActivity : BaseActivity<ActivityMainBinding>(
     R.layout.activity_main
