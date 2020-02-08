@@ -8,6 +8,8 @@
  -Bottom Navigation   
  -AAC ViewModel   
  -Room   
-   
-+coroutine
+
++Retrofit2
++Coroutine
+
 
