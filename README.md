@@ -1,15 +1,21 @@
 # GithubSearcher
+### 기능
+1. 유저 검색
+2. 즐겨찾기
 
-리스트를 검색하고 즐겨찾기를 추가하는 예제소스입니다.   
-
-+Android JetPack Architecture   
- -DataBinding   
- -LiveData   
- -Bottom Navigation   
- -AAC ViewModel   
- -Room   
-
-+Retrofit2   
-+Coroutine
-
+### 적용 기술
+- 구조
+  - MVVM
+- Jetpack
+  - Data Binding
+  - LifeCycle
+  - LiveData
+  - Room
+  - ViewModel
+  
+- Network
+  - Retrofit
+  
+- Async
+  - Coroutine
 
