@@ -1,12 +1,11 @@
 # GithubSearcher
-### 기능
+
+## 기능
 1. 유저 검색
 2. 즐겨찾기
 
-### 적용 기술
-- 구조
-  - MVVM
-- Jetpack
+## 적용 기술
+- Android JetPack Architecture
   - Data Binding
   - LifeCycle
   - LiveData
@@ -18,4 +17,3 @@
   
 - Async
   - Coroutine
-
