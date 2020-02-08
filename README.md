@@ -16,4 +16,4 @@
   - Retrofit
   
 - Async
-  - Coroutines
+  - Coroutine
