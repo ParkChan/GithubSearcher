@@ -2,14 +2,15 @@ package com.example.githubsearcher.tapmenu.home.repository
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.example.githubsearcher.api.GithubService
-import com.example.githubsearcher.api.searchRepos
+import com.example.githubsearcher.network.GithubApi
+
+import com.example.githubsearcher.repository.getGithubRepositoryList
 import com.example.githubsearcher.tapmenu.home.model.GithubModel
 import com.example.githubsearcher.tapmenu.home.model.RepoSearchResult
 
 class GithubRepository {
 
-    private val service: GithubService = GithubService.create()
+    private val api: GithubApi = GithubApi.create()
     private val responseData = MutableLiveData<List<GithubModel>>()
     private val networkErrors = MutableLiveData<String>()
 
@@ -42,27 +43,33 @@ class GithubRepository {
         if (isRequestInProgress) return
 
         isRequestInProgress = true
-        searchRepos(service, query, lastRequestedPage, NETWORK_PAGE_SIZE, { repos ->
+        getGithubRepositoryList(
+            api,
+            query,
+            lastRequestedPage,
+            NETWORK_PAGE_SIZE,
+            { repos ->
 
-            repos.totalCount.let {
-                totalPage = if (repos.totalCount / NETWORK_PAGE_SIZE > 0) {
-                    (repos.totalCount / NETWORK_PAGE_SIZE) + 1
-                } else {
-                    repos.totalCount / NETWORK_PAGE_SIZE
+                repos.totalCount.let {
+                    totalPage = if (repos.totalCount / NETWORK_PAGE_SIZE > 0) {
+                        (repos.totalCount / NETWORK_PAGE_SIZE) + 1
+                    } else {
+                        repos.totalCount / NETWORK_PAGE_SIZE
+                    }
                 }
-            }
 
-            repos.items.let {
-                items.addAll(it)
-                responseData.postValue(items)
-                lastRequestedPage++
-            }
-            isRequestInProgress = false
+                repos.items.let {
+                    items.addAll(it)
+                    responseData.postValue(items)
+                    lastRequestedPage++
+                }
+                isRequestInProgress = false
 
-        }, { error ->
-            networkErrors.postValue(error)
-            isRequestInProgress = false
-        })
+            },
+            { error ->
+                networkErrors.postValue(error)
+                isRequestInProgress = false
+            })
     }
 
     companion object {
