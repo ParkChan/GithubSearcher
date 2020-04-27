@@ -13,14 +13,10 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
 import java.net.URI
-import java.util.*
 
 class MockInterceptor : Interceptor {
 
-    private val FILE_EXTENSION = ".json"
-    private val CONTENT_TYPE = "application/json"
     private val context: Context = GithubApplication.INSTANCE.applicationContext
-    val MEDIA_TYPE = "application/json; charset=utf-8".toMediaType()
 
     override fun intercept(chain: Interceptor.Chain): Response {
 
@@ -31,26 +27,31 @@ class MockInterceptor : Interceptor {
             e.printStackTrace()
         }
 
-        val listSuggestionFileName: MutableList<String> = ArrayList()
-        val method = chain.request().method.toLowerCase()
-
         var response = chain.proceed(chain.request())
 
         // Get Request URI.
         val uri = chain.request().url.toUri()
-        Logger.d("--> Request url: [" + method.toUpperCase() + "]" + uri.toString())
 
-        val defaultFileName: String = getFileName(chain)
+        val method = chain.request().method
+        Logger.d("--> Request url: [$method]  $uri")
 
-        listSuggestionFileName.add(defaultFileName)
+        val fileName: String = getFileName(chain)
 
-        val responseFileName: String? = getFirstFileNameExist(listSuggestionFileName, uri)
-        Logger.d("responseFileName : $responseFileName")
-        if (responseFileName != null) {
-            val fileName: String = getFilePath(uri, responseFileName)
-            val fileNameArr = fileName.split("/")
-            val assetFilePath = fileName.substring(fileNameArr[0].length + 1)
-            Logger.d("Read data from file: $fileName")
+        val responseFileName: String? = getFirstFileNameExist(fileName, uri)
+
+        responseFileName ?: run {
+            for (file in fileName) {
+                Logger.e("File not exist: " + getFilePath(uri, fileName))
+            }
+            response = chain.proceed(chain.request())
+        }
+
+        responseFileName?.run {
+            Logger.d("responseFileName : $this")
+            val tempFileName: String = getFilePath(uri, this)
+            val tempFileNameArr = tempFileName.split("/")
+            val assetFilePath = tempFileName.substring(tempFileNameArr[0].length + 1)
+            Logger.d("Read data from file: $tempFileName")
             try {
                 val inputStream: InputStream = context.getAssets().open(assetFilePath)
                 val bufferedReader =
@@ -69,60 +70,40 @@ class MockInterceptor : Interceptor {
                     .protocol(Protocol.HTTP_1_0)
                     .body(
                         responseStringBuilder.toString().toByteArray()
-                            .toResponseBody(MEDIA_TYPE)
+                            .toResponseBody("application/json; charset=utf-8".toMediaType())
                     )
-                    .addHeader("content-type", CONTENT_TYPE)
+                    .addHeader("content-type", "application/json")
                     .build()
             } catch (e: IOException) {
-                //Logger.e(e.message)
+                Logger.e(e.message.toString())
             }
-        } else {
-            for (file in listSuggestionFileName) {
-                Logger.e("File not exist: " + getFilePath(uri, file))
-            }
-            response = chain.proceed(chain.request())
         }
-
-        Logger.d("<-- END [" + method.toUpperCase() + "]" + uri.toString())
-        return response!!
+        return response
     }
 
-    private fun upCaseFirstLetter(str: String): String? {
-        return str.substring(0, 1).toUpperCase() + str.substring(1)
-    }
-
-    @Throws(IOException::class)
     private fun getFirstFileNameExist(
-        inputFileNames: List<String>,
+        inputFileNames: String,
         uri: URI
     ): String? {
         var mockDataPath = uri.path
         mockDataPath = mockDataPath.substring(1, mockDataPath.lastIndexOf('/'))
 
-        Logger.d("Scan files in url host : ${uri.host} ")
-        Logger.d("Scan files in url path : ${uri.path} ")
-        Logger.d("Scan files in data path : $mockDataPath")
         Logger.d("Scan files in inputFileNames : $inputFileNames")
+        Logger.d("Scan files in data path : $mockDataPath")
 
         //List all files in folder
         val files: Array<String> = context.getAssets().list(mockDataPath) as Array<String>
-        for (fileName in inputFileNames) {
-            if (fileName != null) {
-                for (file in files) {
-                    if (fileName == file) {
-                        Logger.d("Scan files return fileName : $fileName")
-                        return fileName
-                    }
-                }
+        for (file in files) {
+            if (inputFileNames == file) {
+                Logger.d("Scan files return fileName : $inputFileNames")
+                return inputFileNames
             }
         }
         return null
     }
 
     private fun getFileName(chain: Interceptor.Chain): String {
-        val fileName =
-            chain.request().url.pathSegments[chain.request().url.pathSegments.size - 1]
-        return if (fileName.isEmpty()) "index" + FILE_EXTENSION else fileName
+        return chain.request().url.pathSegments[chain.request().url.pathSegments.size - 1]
     }
 
     private fun getFilePath(uri: URI, fileName: String): String {
@@ -131,8 +112,7 @@ class MockInterceptor : Interceptor {
         } else {
             uri.path
         }
-        return uri.host + path + fileName
+        val filePath = StringBuilder(uri.host).append(path).append(fileName)
+        return filePath.toString()
     }
-
-
 }
