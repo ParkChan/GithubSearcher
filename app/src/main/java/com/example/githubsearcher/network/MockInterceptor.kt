@@ -92,7 +92,7 @@ class MockInterceptor : Interceptor {
         Logger.d("Scan files in data path : $mockDataPath")
 
         //List all files in folder
-        val files: Array<String> = context.getAssets().list(mockDataPath) as Array<String>
+        val files: Array<String> = context.assets.list(mockDataPath) as Array<String>
         for (file in files) {
             if (inputFileNames == file) {
                 Logger.d("Scan files return fileName : $inputFileNames")
