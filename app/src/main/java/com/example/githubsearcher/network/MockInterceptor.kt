@@ -53,7 +53,7 @@ class MockInterceptor : Interceptor {
             val assetFilePath = tempFileName.substring(tempFileNameArr[0].length + 1)
             Logger.d("Read data from file: $tempFileName")
             try {
-                val inputStream: InputStream = context.getAssets().open(assetFilePath)
+                val inputStream: InputStream = context.assets.open(assetFilePath)
                 val bufferedReader =
                     BufferedReader(InputStreamReader(inputStream))
                 val responseStringBuilder = StringBuilder()
